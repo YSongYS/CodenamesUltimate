@@ -1,0 +1,33 @@
+.card {
+  height:120px;
+}
+
+.card.flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.word{
+
+}
+
+.board-container {
+  margin:20px;
+}
+
+.red {
+  background-color: red;
+}
+
+.blue {
+  background-color: blue;
+}
+
+.assassin {
+  background-color: black;
+}
+
+.civilian {
+  background-color: green;
+}

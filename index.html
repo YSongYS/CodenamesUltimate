@@ -2,19 +2,31 @@
 <html lang="en" dir="ltr">
   <head>
     <!-- Animate.css -->
-	<link rel="stylesheet" href="assets/styles/animate.css">
+	<link rel="stylesheet" href="css/animate.css">
 	<!-- Bootstrap  -->
-	<link rel="stylesheet" href="assets/styles/bootstrap.css">
+	<link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="stylesheet" href="css/style.css">
+
   </head>
 
 
 
   <body>
+    <div class="board-nav">
+      <button id= 'player-view-btn' type="button" name="button">Player view</button>
+      <button id= 'master-view-btn'type="button" name="button">Master view</button>
+      <button id= 'new-game-btn'type="button" name="button">Start new game</button>
+    </div>
 
+    <div class='board-container card-columns'>
+    </div>
 
+    <script src="./src/adapters.js"></script>
+    <script src="./src/card.js"></script>
+    <script src="./src/board.js"></script>
     <script src="./src/index.js"></script>
   </body>
 
 
-  
+
 </html>
