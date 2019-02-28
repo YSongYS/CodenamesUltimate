@@ -19,8 +19,6 @@ Good to have ///////////////////////////////////////////////////////////////////
   * Game room class + user class
       - add id to board class to allow multiple games ongoing
       - users and game rooms as many to many (can join any ongoing game, or start a new game)
-      - 
-
 
 
 Amazing /////////////////////////////////////////////////////////////////////////////////////////
