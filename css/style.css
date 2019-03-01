@@ -1,33 +1,106 @@
 .card {
-  height:120px;
+  height: 120px;
 }
 
 .card.flex {
+  display: flex;
+  font-size: 20px;
+  align-items: center;
+  justify-content: center;
+  border-color: black;
+}
+
+.board-header {
+  display: flex;
+  width: 85%;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo{
+  margin-top: 20px;
+  height: 50px;
+}
+
+.word{
+}
+
+.board-container {
+  margin-top: 10px;
+  margin-left: 50px;
+  width: 72%;
+  height: 680px;
+  float: left;
+}
+
+.board-nav {
+  margin-top: 10px;
+  margin-right: 50px;
+  background-color:
+  width: 20%;
+  height: 680px;
+  float: right;
+  position:relative;
+}
+
+.countdown {
+  margin-top: 40px;
+  text-align: center;
+  font-size: 70px;
+  margin-bottom: 0px;
+}
+
+.countdown-nav {
+  margin-top: 0px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.board-nav.logo {
+  position: absolute;
+  left: 20%;
+  right: 20%;
+  height: 250px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.word{
-
+.score-board {
+  width:75%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-size: 18px;
 }
 
-.board-container {
-  margin:20px;
+.view-nav {
+  margin-top: 10px;
+}
+
+.master-logo {
+  height:250px;
+  margin-left: 50px;
 }
 
 .red {
-  background-color: red;
+  background: url(../images/red.png) center no-repeat #fff;
+  background-size: 100%;
 }
 
 .blue {
-  background-color: blue;
+  background: url(../images/blue.png) center no-repeat #fff;
+  background-size: 100%;
 }
 
 .assassin {
-  background-color: black;
+  background: url(../images/assassin.png) center no-repeat #fff;
+  background-size: 100%;
 }
 
 .civilian {
-  background-color: green;
+  background: url(../images/civillian.png) center no-repeat #fff;
+  background-size: 100%;
 }

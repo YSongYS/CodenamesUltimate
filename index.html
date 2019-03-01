@@ -9,16 +9,34 @@
 
   </head>
 
-
-
   <body>
-    <div class="board-nav">
-      <button id= 'player-view-btn' type="button" name="button">Player view</button>
-      <button id= 'master-view-btn'type="button" name="button">Master view</button>
-      <button id= 'new-game-btn'type="button" name="button">Start new game</button>
+    <div class="board-header">
+      <img class="logo" src="./images/title.png">
     </div>
 
-    <div class='board-container card-columns'>
+    <div class='board-container card-columns shadow p-3 mb-5 bg-white rounded'>
+    </div>
+
+    <div class="board-nav shadow p-3 mb-5 bg-white rounded">
+      <div class="view-nav">
+        <button id='player-view-btn' type="button" name="button" class="btn btn-info">Operative view</button>
+        <button id='master-view-btn' type="button" name="button" class="btn btn-secondary">Master view</button>
+      </div>
+      <div class="countdown">
+        <h2>Timer</h2>
+        <p>00:00</p>
+      </div>
+      <div class="countdown-nav">
+        <button id='start-timer-btn' type="button" name="button" class="btn btn-light">Start</button>
+        <button id='pause-timer-btn' type="button" name="button" class="btn btn-light">Pause</button>
+        <button id='reset-timer-btn' type="button" name="button" class="btn btn-light">Next</button>
+      </div>
+      <div class="score-board">
+          To win: Red-0 | Blue-0
+      </div>
+      <div class="board-nav logo">
+        <img class="master-logo" src="./images/master.jpg">
+      </div>
     </div>
 
     <script src="./src/adapters.js"></script>
