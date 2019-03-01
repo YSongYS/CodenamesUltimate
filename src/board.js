@@ -4,6 +4,8 @@ class Board{
     this.startColor = this.initStartColor()
     this.materView = this.initNavToggle()
     this.boardEl = document.querySelector('div.board-container')
+    this.timePause = false
+    this.timeleft = "03:00"
   }
 
   initBoard(){
@@ -24,7 +26,7 @@ class Board{
     operativeViewBtn.addEventListener('click',this.operativeView.bind(this))
     masterViewBtn.addEventListener('click',this.masterView.bind(this))
     const startTimerBtn = document.querySelector('#start-timer-btn')
-    startTimerBtn.addEventListener('click', this.timer.bind(this))
+    startTimerBtn.addEventListener('click', e=> this.timer(this.timeleft))
     return false
   }
 
@@ -85,25 +87,45 @@ class Board{
     this.cards.push(cardInstance)
   }
 
-  timer(){
-    let timePause = false
+  timer(timeleft){
+    this.timePause = false
     const timerEl = document.querySelector('div.countdown p')
-    console.log(timerEl.innerText)
-    timerEl.innerText = "03:00";
+    const resetTimerBtn = document.querySelector('#reset-timer-btn')
+    resetTimerBtn.addEventListener('click', this.resetTimer.bind(this))
 
-    let countDown = setInterval(getTime, 1000)
+    const pauseTimerBtn = document.querySelector('#pause-timer-btn')
+    pauseTimerBtn.addEventListener('click', ()=> {
+      this.timePause = true
+      clearInterval(countDown)
+      this.timeleft = timerEl.innerText
+    })
+
+    timerEl.innerText = timeleft;
+    let countDown = setInterval(getTime.bind(this), 1000)
 
     function getTime (){
       let [min,sec] = timerEl.innerText.split(":")
       let secondsLeft = parseInt(min)*60 + parseInt(sec)
-      secondsLeft -= 1;
+      if (!this.timePause) {secondsLeft -= 1;}
       min = Math.floor(secondsLeft/60)
       sec = secondsLeft%60
       sec = (sec<10)? `0${sec}`: sec
       min = (min<10)? `0${min}`: min
       timerEl.innerText = `${min}:${sec}`
+      if (secondsLeft<=0) {console.log(timeleft); clearInterval(countDown)}
     }
+    return countDown
+  }
 
+  resetTimer(){
+    const timerEl = document.querySelector('div.countdown p')
+    this.timeleft = '03:00'
+    this.timePause = true
+    timerEl.innerText = this.timeleft;
+
+
+
+    // clearInterval(this.timer("03:00"))
   }
 
 }
