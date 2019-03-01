@@ -16,9 +16,18 @@ MVP ////////////////////////////////////////////////////////////////////////////
 
 
 Good to have /////////////////////////////////////////////////////////////////////////////////////////
-  * Game room class + user class
-      - add id to board class to allow multiple games ongoing
-      - users and game rooms as many to many (can join any ongoing game, or start a new game)
+  * Allow master to enter keyword
+  * Display number and hint
+  * Visualize turn color
+  * Automatically switch turn
 
 
 Amazing /////////////////////////////////////////////////////////////////////////////////////////
+  * Wiggle assassin and fade out
+  * Landing page
+  * Game room class + user class
+      - add id to board class to allow multiple games ongoing
+      - users and game rooms as many to many (can join any ongoing game, or start a new game)
+  * Chat window
+  * Special editions
+  * Picture version
