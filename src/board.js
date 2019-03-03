@@ -1,16 +1,30 @@
 class Board{
   constructor(){
     this.cards = []
-    this.startColor = this.initStartColor()
-    this.materView = false
+
     this.boardEl = document.querySelector('div.board-container')
-    this.timePause = false
-    this.timeleft = "03:00"
+
+    this.timerEl = document.querySelector('div.countdown p')
+    this.startTimerBtn = document.querySelector('#start-timer-btn')
+    this.resetTimerBtn = document.querySelector('#reset-timer-btn')
+    this.pauseTimerBtn = document.querySelector('#pause-timer-btn')
+    this.operativeViewBtn = document.querySelector('#player-view-btn')
+    this.masterViewBtn = document.querySelector('#master-view-btn')
+    this.currentTeamEl = document.querySelector('#current-team')
+    this.scoreBoardEl = document.querySelector('div.score-board')
+    this.countDownEl = document.querySelector(".countdown")
+
+    this.startColor = this.initStartColor()
     this.redCount = (this.startColor==='red')? 9:8
     this.blueCount = (this.startColor==='blue')? 9:8
     this.currentTurn = this.startColor
+    this.timePause = false
+    this.timeleft = "03:00"
     this.countDown = this.startTimer()
+    this.materView = false
   }
+
+  ////////////////////////// Intialization //////////////////////////
 
   initBoard(){
     let selectedWords
@@ -26,76 +40,15 @@ class Board{
   }
 
   initNavToggle(){
-    const operativeViewBtn = document.querySelector('#player-view-btn')
-    const masterViewBtn = document.querySelector('#master-view-btn')
-    operativeViewBtn.addEventListener('click',this.operativeView.bind(this))
-    masterViewBtn.addEventListener('click',this.masterView.bind(this))
+    this.operativeViewBtn.addEventListener('click',this.operativeView.bind(this))
+    this.masterViewBtn.addEventListener('click',this.masterView.bind(this))
 
-    //////////////////////
-    const startTimerBtn = document.querySelector('#start-timer-btn')
-    startTimerBtn.addEventListener('click', e=> this.startTimer())
-
-    const resetTimerBtn = document.querySelector('#reset-timer-btn')
-    resetTimerBtn.addEventListener('click', e=>this.resetTimer(countDown))
-
-    const pauseTimerBtn = document.querySelector('#pause-timer-btn')
-    pauseTimerBtn.addEventListener('click', ()=> this.pauseTimer())
+    this.startTimerBtn.addEventListener('click', e=> this.startTimer())
+    this.resetTimerBtn.addEventListener('click', e=>this.resetTimer())
+    this.pauseTimerBtn.addEventListener('click', e=> this.pauseTimer())
 
     this.displayTurn()
     this.displayScoreBoard()
-
-    return false
-  }
-
-  displayTurn(){
-    const currentTeamEl = document.querySelector('#current-team')
-    currentTeamEl.innerText = this.currentTurn.toUpperCase()
-  }
-
-
-  displayScoreBoard(){
-    this.checkGameOver()
-    const scoreBoardEl = document.querySelector('div.score-board')
-    scoreBoardEl.innerText = `To win: Red-${this.redCount} | Blue-${this.blueCount}`
-  }
-
-  checkGameOver(){
-    this.redCount = this.cards.filter((card)=>card.type==='red'&&card.clicked===false).length
-    this.blueCount = this.cards.filter((card)=>card.type==='blue'&&card.clicked===false).length
-    const assassinClicked = !!this.cards.filter((card)=>card.type==='assassin'&&card.clicked===true).length
-    if (this.redCount * this.blueCount === 0) {
-      this.redCount===0? this.displayGameOver('red'):this.displayGameOver('blue')
-    }
-    else if (assassinClicked){
-      this.currentTurn==='red'? this.displayGameOver('blue'):this.displayGameOver('red')
-    }
-  }
-
-  displayGameOver(winner){
-    const navDiv = document.querySelector(".countdown")
-    navDiv.innerHTML = ""
-    navDiv.innerHTML = `
-    <h2>GAME OVER</h2>
-    <h4>${winner.toUpperCase()} WON</h4>
-    `
-  }
-
-  operativeView(){
-    this.renderBoard(this.cards)
-    const operativeViewBtn = document.querySelector('#player-view-btn')
-    const masterViewBtn = document.querySelector('#master-view-btn')
-    operativeViewBtn.classList = "btn btn-info"
-    masterViewBtn.classList = "btn btn-secondary"
-  }
-
-  masterView(){
-    this.cards.forEach(cardInstance => {
-      cardInstance.showCard()
-    })
-    const operativeViewBtn = document.querySelector('#player-view-btn')
-    const masterViewBtn = document.querySelector('#master-view-btn')
-    operativeViewBtn.classList = "btn btn-secondary"
-    masterViewBtn.classList = "btn btn-info"
   }
 
   initTypeArray(){
@@ -124,6 +77,13 @@ class Board{
       })
   }
 
+  createCard(card){
+    const cardInstance = new Card (card)
+    this.cards.push(cardInstance)
+  }
+
+  ////////////////////////// Display and render functions //////////////////////////
+
   renderBoard(cards){
     this.boardEl.innerHTML = ''
     cards.forEach((cardInstance) => {
@@ -133,6 +93,38 @@ class Board{
     this.boardEl.addEventListener('click', e=>this.clickCard(e))
   }
 
+  displayTurn(){
+    this.currentTeamEl.innerText = this.currentTurn.toUpperCase()
+  }
+
+
+  displayScoreBoard(){
+    this.checkGameOver()
+    this.scoreBoardEl.innerText = `To win: Red-${this.redCount} | Blue-${this.blueCount}`
+  }
+
+  checkGameOver(){
+    this.redCount = this.cards.filter((card)=>card.type==='red'&&card.clicked===false).length
+    this.blueCount = this.cards.filter((card)=>card.type==='blue'&&card.clicked===false).length
+    const assassinClicked = !!this.cards.filter((card)=>card.type==='assassin'&&card.clicked===true).length
+    if (this.redCount * this.blueCount === 0) {
+      this.redCount===0? this.displayGameOver('red'):this.displayGameOver('blue')
+    }
+    else if (assassinClicked){
+      this.currentTurn==='red'? this.displayGameOver('blue'):this.displayGameOver('red')
+    }
+  }
+
+  displayGameOver(winner){
+    this.countDownEl.innerHTML = ""
+    this.countDownEl.innerHTML = `
+    <h2>GAME OVER</h2>
+    <h4>${winner.toUpperCase()} WON</h4>
+    `
+  }
+
+  ////////////////////////// Dynamic User Interactions //////////////////////////
+
   clickCard(event){
     const cardId = event.target.dataset.id
     const cardInstance = this.cards.find((card)=>card.id==cardId)
@@ -141,49 +133,59 @@ class Board{
     this.displayScoreBoard()
   }
 
-  createCard(card){
-    const cardInstance = new Card (card)
-    this.cards.push(cardInstance)
+  operativeView(){
+    this.renderBoard(this.cards)
+    this.operativeViewBtn.classList = "btn btn-dark"
+    this.masterViewBtn.classList = "btn btn-outline-dark"
   }
 
-  startTimer(timeleft){
+  masterView(){
+    this.cards.forEach(cardInstance => {
+      cardInstance.showCard()
+    })
+    this.operativeViewBtn.classList = "btn btn-outline-dark"
+    this.masterViewBtn.classList = "btn btn-dark"
+  }
+
+  ////////////////////////// Timer functions //////////////////////////
+
+  startTimer(){
     this.timePause = false
-    const countDown = setInterval(getTime.bind(this), 1000)
-    const timerEl = document.querySelector('div.countdown p')
+    this.timerEl.innerText = this.timeleft
+    this.timerEl.style.color = (this.currentTurn === 'blue')? 'navy':'maroon'
+    this.countDown = setInterval(getTime.bind(this), 1000)
+    this.startTimerBtn.disabled = true
 
     function getTime (){
-      let [min,sec] = timerEl.innerText.split(":")
+      let [min,sec] = this.timerEl.innerText.split(":")
       let secondsLeft = parseInt(min)*60 + parseInt(sec)
       if (!this.timePause) {secondsLeft -= 1;}
       min = Math.floor(secondsLeft/60)
       sec = secondsLeft%60
       sec = (sec<10)? `0${sec}`: sec
       min = (min<10)? `0${min}`: min
-      timerEl.innerText = `${min}:${sec}`
-      if (secondsLeft<=0) {clearInterval(countDown)}
+      this.timerEl.innerText = `${min}:${sec}`
+      if (secondsLeft<=0) {clearInterval(this.countDown)}
     }
 
-    timerEl.innerText = timeleft;
-    return countDown
+    this.timerEl.innerText = this.timeleft;
+    return this.countDown
   }
 
   pauseTimer(){
+    this.startTimerBtn.disabled = false
     this.timePause = true
     clearInterval(this.countDown)
-    this.timeleft = timerEl.innerText
+    this.timeleft = this.timerEl.innerText
   }
 
   resetTimer(){
-    console.log('inside countDown')
-    const timerEl = document.querySelector('div.countdown p')
+    this.startTimerBtn.disabled = true
+    clearInterval(this.countDown)
     this.timeleft = '03:00'
-    console.log(this.currentTurn)
     this.currentTurn = (this.currentTurn==='blue')? 'red':'blue'
     this.displayTurn()
-    console.log(this.currentTurn)
-    this.timePause = true
-    clearInterval(this.countDown)
-    timerEl.innerText = this.timeleft;
+    this.countDown = this.startTimer()
   }
 
 }

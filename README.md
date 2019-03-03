@@ -16,14 +16,13 @@ MVP ////////////////////////////////////////////////////////////////////////////
 
 
 Good to have /////////////////////////////////////////////////////////////////////////////////////////
-  * Allow master to enter keyword
+  * Allow master to enter code and counts
   * Display number and hint
   * Visualize turn color
   * Automatically switch turn
 
 
 Amazing /////////////////////////////////////////////////////////////////////////////////////////
-  * Wiggle assassin and fade out
   * Landing page
   * Game room class + user class
       - add id to board class to allow multiple games ongoing
@@ -31,3 +30,4 @@ Amazing ////////////////////////////////////////////////////////////////////////
   * Chat window
   * Special editions
   * Picture version
+  * Wiggle assassin and fade out

@@ -10,7 +10,6 @@ class Card{
     const cardEl = document.createElement('div')
     cardEl.classList = 'card flex'
     cardEl.dataset.id = this.id
-    // cardEl.addEventListener('click', e => {this.clickCard(e.target.dataset.id)})
     cardEl.innerText = `${this.word.toUpperCase()}`
     return cardEl
   }
